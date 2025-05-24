@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Student</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        input {
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid gray;
+            height: 5vh;
+            margin-top: 5vh;
+
+        }
+
+        button {
+            height: 5vh;
+            border-radius: 10px;
+            border: 1px solid gray;
+            padding: 5px;
+            width: 5vw;
+            margin-top: 3vh;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <input type="text" id="roll" placeholder="Enter A Roll Number">
+    <div id="div"></div>
+    <button id="check">Check</button>
+
+
+    <script>
+        let roll = document.getElementById('roll')
+        let div = document.getElementById('div')
+        let arr = JSON.parse(localStorage.getItem('studentData')) || []
+        let check = document.getElementById('check')
+        check.addEventListener('click', () => {
+            for (let i = 0; i < arr.length; i++) {
+                
+                if (roll.value == arr[i].RollNumber) {
+                    check.style.display = `none`
+                    roll.style.display = `none`
+                    div.innerHTML = `
+                    <h1>Name : ${arr[i].name}</h1>
+<p>Roll Number : ${arr[i].RollNumber}</p>
+<p>Gender : ${arr[i].gender}</p>
+<p>Age : ${arr[i].age}</p>
+<p>Email : ${arr[i].email}</p>
+<p>Mobile : ${arr[i].mobile}</p>
+<p>Joining Date : ${arr[i].Date}</p>
+`
+                }else{
+                    alert('No Student On This Roll Number')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
