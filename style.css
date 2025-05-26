@@ -1,6 +1,6 @@
  body {
-     background: linear-gradient(to right, #840505, #921e1ef5);
-     color: white;
+     background: linear-gradient(to right, #537D5D);
+     color: black;
      text-align: center;
      padding: 20px;
      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,13 +18,15 @@
      margin: 10px auto;
      padding: 10px;
      border: none;
+     outline: none;
      border-radius: 8px;
-     background-color: rgba(255, 255, 255, 0.1);
+     /* background-color: rgba(255, 255, 255, 0.1); */
+     background-color: #9EBC8A;
      color: white;
  }
 
  input::placeholder {
-     color: rgba(255, 255, 255, 0.8);
+     color: black;
  }
 
  .abc {
@@ -35,7 +37,8 @@
  table {
      width: 95%;
      margin: 30px auto;
-     background-color: rgba(255, 255, 255, 0.1);
+     /* background-color: rgba(255, 255, 255, 0.1); */
+     background-color: #9EBC8A !important;
      border-collapse: collapse;
      border-radius: 10px;
      overflow: hidden;
@@ -44,12 +47,10 @@
  th,
  td {
      padding: 12px 15px;
-     color: white;
+     color: black;
+
  }
 
- th {
-     background-color: rgba(255, 255, 255, 0.2);
- }
 
  tr:nth-child(even) {
      background-color: rgba(255, 255, 255, 0.05);
@@ -59,8 +60,19 @@
      background-color: rgba(255, 255, 255, 0.1);
  }
 
- .btn {
+ .btn1 {
      margin: 5px;
+     border: none;
+     padding: 10px;
+     border-radius: 10px;
+     /* font-weight:     bold; */
+     color: black;
+     background-color: #9EBC8A !important;
+
+ }
+
+ .btn:hover {
+     color: black;
  }
 
  .dlt {

@@ -11,7 +11,8 @@
         body {
             text-align: center;
             color: white;
-            background: linear-gradient(to right, #840505, #921e1ef5);
+            background: linear-gradient(to right, #537D5D);
+
         }
 
         input {
@@ -20,13 +21,28 @@
             margin: 10px auto;
             padding: 10px;
             border: none;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: #9EBC8A;
             color: white;
             border-radius: 10px;
             padding: 10px;
             border: 1px solid gray;
-            height: 5vh;
+            height: 8vh;
+            outline: none;
             margin-top: 5vh;
+
+        }
+
+        input::placeholder {
+            color: black;
+        }
+
+        .btn1 {
+            margin: 5px;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: black;
+            background-color: #9EBC8A !important;
 
         }
     </style>
@@ -36,7 +52,7 @@
 
 
     <input type="text" id="roll" placeholder="Enter A Roll Number"><br>
-    <button id="check" class="btn btn-light mt-3 fw-bold">Check</button>
+    <button id="check" class="btn1 mt-3 fw-bold">Check</button>
     <div id="div" class="mt-5"></div>
 
 
@@ -45,26 +61,25 @@
         let div = document.getElementById('div')
         let arr = JSON.parse(localStorage.getItem('studentData')) || []
         let check = document.getElementById('check')
+        let flag = false
         check.addEventListener('click', () => {
-            for (let i = 0; i < arr.length; i++) {
-
-                if (roll.value == arr[i].RollNumber) {
-                    check.style.display = `none`
-                    roll.style.display = `none`
-                    div.innerHTML = `
-                    <h1>Name : ${arr[i].name}</h1>
-<p>Roll Number : ${arr[i].RollNumber}</p>
-<p>Gender : ${arr[i].gender}</p>
-<p>Age : ${arr[i].age}</p>
-<p>Email : ${arr[i].email}</p>
-<p>Mobile : ${arr[i].mobile}</p>
-<p>Joining Date : ${arr[i].Date}</p>
+            let i = arr.find((e) => {
+                return roll.value == e.RollNumber 
+            })
+            // console.log(i.name);
+            check.style.display = `none`
+            roll.style.display = `none`
+            div.innerHTML = `
+                    <h1>Name : ${i.name}</h1>
+<p>Roll Number : ${i.RollNumber}</p>
+<p>Gender : ${i.gender}</p>
+<p>Age : ${i.age}</p>
+<p>Email : ${i.email}</p>
+<p>Mobile : ${i.mobile}</p>
+<p>Joining Date : ${i.Date}</p>
 `
-                } else {
-                    alert('No Student On This Roll Number')
-                }
-            }
-        })
+
+        });
     </script>
 </body>
 
