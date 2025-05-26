@@ -1,72 +1,74 @@
 let add = document.getElementById("add")
-let first = document.getElementById('first')
-// localStorage.setItem('11',JSON.stringify("abd"))
-let arr = JSON.parse(localStorage.getItem('studentData')) || []
+    let first = document.getElementById('first')
+    let arr = JSON.parse(localStorage.getItem('studentData')) || []
 
-add.addEventListener("click", function () {
-    first.innerHTML = `   <input type="text" placeholder="Enter Your Name" id="name"  class="btn"><br>
-    <input type="email" placeholder="Enter Your Email" id="email"  class="btn"  required><br>
-    <input type="number" placeholder="Enter Your Age" id="age"  class="btn"><br>
-    <input type="number" placeholder="Enter A Mobile Number" id="mobile"  class="btn"><br>
-    <input type="radio" value="Male" name="gender" class="abc"> Male
-    <input type="radio" value="Female" name="gender" class="abc"> Female <br>
-    <button id="second" class="btn bg-primary text-light mt-3">Add Student</button>
-    <button id="clear" class="btn bg-primary text-light mt-3">Delete All Data</button>
-    <button id="checkStudent" class="btn bg-primary text-light mt-3">Check Student</button>
-    <br>
-    <br>
-    <table border="1">
-    <thead>
-    <tr>
-    <th>Roll Number</th>
-    <th>Name</th>
-    <th>Gender</th>
-    <th>Age</th>
-    <th>Email</th>
-    <th>Mobile Number</th>
-    <th>Joining </th>
-    </tr>
-    </thead>
-    <tbody id="table">
-    </tbody>
-    
-    </table>
-    `
-    document.getElementById('checkStudent').addEventListener('click', () => {
+    add.addEventListener("click", function () {
+      first.innerHTML = `
+        <input type="text" placeholder="Enter Your Name" id="name"><br>
+        <input type="email" placeholder="Enter Your Email" id="email" required><br>
+        <input type="number" placeholder="Enter Your Age" id="age"><br>
+        <input type="number" placeholder="Enter A Mobile Number" id="mobile"><br>
+        <input type="radio" value="Male" name="gender" class="abc" id="male"><label for="male" id="">Male</label>
+        <input type="radio" value="Female" name="gender" class="abc" id="female"><label for="female" id="">Female</label>  <br>
+        <button id="second" class="btn btn-success mt-3">Add Student</button>
+        <button id="clear" class="btn btn-danger mt-3">Delete All Data</button>
+        <button id="checkStudent" class="btn btn-info mt-3 text-white">Check Student</button>
+        <br><br>
+        <table class="table table-bordered text-white">
+          <thead>
+            <tr>
+              <th>Roll Number</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Joined</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="table"></tbody>
+        </table>
+      `
+      document.getElementById('checkStudent').addEventListener('click', () => {
         window.location.href = `student.html`
-    })
+      })
 
-    let table = document.getElementById("table")
-    document.getElementById('clear').addEventListener('click', () => {
-        clear();
-    })
-    add.style.display = 'none'
-    let mob = document.getElementById("mobile")
-    let email = document.getElementById("email")
-    let age = document.getElementById("age")
-    let StudentName = document.getElementById("name")
-    let img = document.getElementById("img")
-    let gender = document.getElementsByName('gender')
-    let ans
+      let table = document.getElementById("table")
+      document.getElementById('clear').addEventListener('click', () => {
+        localStorage.clear();
+        arr = [];
+        table.innerHTML = ``;
+      })
 
-    let second = document.getElementById("second").addEventListener('click', function () {
-        let abc = StudentName.value.slice(0, 1).toUpperCase() + StudentName.value.slice(1)
-        // console.log(abc);
-        let random = Math.floor(Math.random() * 1000 + 1000)
+      add.style.display = 'none'
+      let mob = document.getElementById("mobile")
+      let email = document.getElementById("email")
+      let age = document.getElementById("age")
+      let StudentName = document.getElementById("name")
+      let gender = document.getElementsByName('gender')
+
+      document.getElementById("second").addEventListener('click', function () {
+        let ans;
         for (let i = 0; i < gender.length; i++) {
-            if (gender[i].checked) {
-                ans = gender[i].defaultValue
-            }
+          if (gender[i].checked) {
+            ans = gender[i].value
+          }
+        }
+
+        if (!StudentName.value || !email.value || !age.value || !mob.value || !ans) {
+          alert("Please fill all fields!");
+          return;
         }
 
         let obj = {
-            RollNumber: random,
-            name: abc,
-            gender: ans,
-            age: age.value,
-            email: email.value,
-            mobile: mob.value,
-            Date: dayjs().format(),
+          RollNumber: Math.floor(Math.random() * 1000 + 1000),
+          name: StudentName.value.charAt(0).toUpperCase() + StudentName.value.slice(1),
+          gender: ans,
+          age: age.value,
+          email: email.value,
+          mobile: mob.value,
+          Date: dayjs().format(),
         }
         arr.push(obj)
 
@@ -75,40 +77,27 @@ add.addEventListener("click", function () {
         age.value = ``
         email.value = ``
         local()
+      })
+
+      local()
     })
 
-    function clear() {
-        localStorage.clear();
-        table.innerHTML = ``
-    }
-    local()
-})
-
-
-
-function local() {
-    table.innerHTML = ``
-    localStorage.setItem('studentData', JSON.stringify(arr))
-    for (let i = 0; i < arr.length; i++) {
+    function local() {
+      let table = document.getElementById("table")
+      table.innerHTML = ``
+      localStorage.setItem('studentData', JSON.stringify(arr))
+      for (let i = 0; i < arr.length; i++) {
         let now = dayjs();
         let date = dayjs(arr[i].Date);
-        let minutes = now.diff(date, 'minute');
-        let second = now.diff(date, 'second');
-        let Hours = now.diff(date, 'hour');
-        let Days = now.diff(date, 'day');
-        let result;
-        if (second < 60) {
-            result = `${second} Seconds ago`;
-        }
-        else if (minutes < 60) {
-            result = `${minutes} Minutes ago`;
-        } else if (Hours < 24) {
-            result = `${Hours} Hours ago`;
-        } else {
-            result = `${Days} Days ago`;
-        }
+        let diff = now.diff(date, 'second');
+        let result =
+          diff < 60 ? `${diff} seconds ago` :
+            diff < 3600 ? `${Math.floor(diff / 60)} minutes ago` :
+              diff < 86400 ? `${Math.floor(diff / 3600)} hours ago` :
+                `${Math.floor(diff / 86400)} days ago`;
 
-        table.innerHTML += `<tr>
+        table.innerHTML += `
+          <tr>
             <td>${arr[i].RollNumber}</td>
             <td>${arr[i].name}</td>
             <td>${arr[i].gender}</td>
@@ -116,26 +105,16 @@ function local() {
             <td>${arr[i].email}</td>
             <td>${arr[i].mobile}</td>
             <td>${result}</td>
-            <td><img src="delete.png" alt="" width="25" class="dlt"></td>
-        </tr>`
-        let dlt = document.querySelectorAll('.dlt')
+            <td><img src="https://img.icons8.com/ios-glyphs/30/ffffff/delete-sign.png" alt="delete" class="dlt" width="25"></td>
+          </tr>`
+      }
 
-        for (let j = 0; j < dlt.length; j++) {
-            dlt[j].addEventListener('click', (e) => {
-                let parentElement = e.target.parentElement.parentElement
-                parentElement.remove()
-                arr.splice(j, 1)
-                localStorage.setItem("studentData", JSON.stringify(arr));
-            })
-        }
+      let dlt = document.querySelectorAll('.dlt')
+      dlt.forEach((icon, index) => {
+        icon.addEventListener('click', () => {
+          arr.splice(index, 1)
+          localStorage.setItem("studentData", JSON.stringify(arr));
+          local()
+        })
+      })
     }
-}
-
-
-// let now = dayjs().format('h:m A')
-// let date = arr[0].Date
-// let abc = dayjs()
-// console.log(date.diff(abc,'min'));
-// console.log(now);
-
-// console.log(result);

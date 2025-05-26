@@ -1,0 +1,73 @@
+ body {
+     background: linear-gradient(to right, #840505, #921e1ef5);
+     color: white;
+     text-align: center;
+     padding: 20px;
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ #first {
+     margin-top: 20px;
+ }
+
+ input[type="text"],
+ input[type="email"],
+ input[type="number"] {
+     width: 90%;
+     max-width: 400px;
+     margin: 10px auto;
+     padding: 10px;
+     border: none;
+     border-radius: 8px;
+     background-color: rgba(255, 255, 255, 0.1);
+     color: white;
+ }
+
+ input::placeholder {
+     color: rgba(255, 255, 255, 0.8);
+ }
+
+ .abc {
+     font-size: 18px;
+     margin: 10px;
+ }
+
+ table {
+     width: 95%;
+     margin: 30px auto;
+     background-color: rgba(255, 255, 255, 0.1);
+     border-collapse: collapse;
+     border-radius: 10px;
+     overflow: hidden;
+ }
+
+ th,
+ td {
+     padding: 12px 15px;
+     color: white;
+ }
+
+ th {
+     background-color: rgba(255, 255, 255, 0.2);
+ }
+
+ tr:nth-child(even) {
+     background-color: rgba(255, 255, 255, 0.05);
+ }
+
+ tr:hover {
+     background-color: rgba(255, 255, 255, 0.1);
+ }
+
+ .btn {
+     margin: 5px;
+ }
+
+ .dlt {
+     cursor: pointer;
+     transition: transform 0.2s;
+ }
+
+ .dlt:hover {
+     transform: scale(1.2);
+ }
